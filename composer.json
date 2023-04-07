@@ -1,0 +1,21 @@
+{
+    "name": "oclockdev/keycloak-jwt-guard",
+    "description": "A library to decode JWT provided by Keycloak",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Oclockdev\\KeycloakJwtGuard\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "DamienCarreno",
+            "email": "damien@oclock.io"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.5",
+        "firebase/php-jwt": "^6.4"
+    }
+}
