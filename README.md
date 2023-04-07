@@ -29,5 +29,4 @@ $payload = $keycloakGuard->authenticate();
 // Call the userinfo keycloak endpoint with the access token
 $userinfo = $keycloakGuard->getOwnerRessource();
 
-
 ```
