@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/ecole-oclock/keycloak-jwt-guard/compare/v1.1.0...v1.1.1) (2023-04-11)
+
+
+### Bug Fixes
+
+* public properties ([1b635cf](https://github.com/ecole-oclock/keycloak-jwt-guard/commit/1b635cf0fc590c821b79fd39016fc8430af81215))
+
 ## [1.1.0](https://github.com/ecole-oclock/keycloak-jwt-guard/compare/v1.0.0...v1.1.0) (2023-04-11)
 
 
