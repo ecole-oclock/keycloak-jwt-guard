@@ -24,6 +24,8 @@ class KeycloakGuard{
 
     protected ?stdClass $payload = null;
 
+    protected ?array $certs = null;
+
     const MANDATORIES = [
         'serverUrl',
         'realm',
@@ -102,6 +104,9 @@ class KeycloakGuard{
      */
     public function authenticate( ?string $bearerToken = null  ): stdClass
     {
+        // Execute scripts before to authenticate the JWT
+        $this->preAuthenticate();
+
         if( $bearerToken === null ){
             $bearerToken = $this->accessToken;
         }
@@ -111,10 +116,25 @@ class KeycloakGuard{
         }
 
         $this->accessToken = Bearer::extractAccessToken($bearerToken);
+
+
         // Get the JWKS for decoding token
-        $certs = $this->requestForJson( $this->getCertsUrl());
-        $this->payload = JWT::decode( $this->accessToken, JWK::parseKeySet($certs));
+        $this->payload = JWT::decode( $this->accessToken, JWK::parseKeySet($this->getCerts()));
+
+
         return $this->payload;
+    }
+
+
+    /**
+     * Executed juste before JWT authentication
+     * For exemple, you can overwrite it for storing certs in the application cache
+     * @return void
+     */
+    public function preAuthenticate(){
+        if( $this->certs === null ){
+            $this->certs = $this->requestForJson( $this->getCertsUrl());
+        }
     }
 
     /**
@@ -180,4 +200,24 @@ class KeycloakGuard{
     }
 
 
+
+    /**
+     * Get the value of certs
+     */ 
+    public function getCerts()
+    {
+        return $this->certs;
+    }
+
+    /**
+     * Set the value of certs
+     *
+     * @return  self
+     */ 
+    public function setCerts($certs)
+    {
+        $this->certs = $certs;
+
+        return $this;
+    }
 }
