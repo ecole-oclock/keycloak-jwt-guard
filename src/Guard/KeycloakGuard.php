@@ -77,7 +77,7 @@ class KeycloakGuard{
      * Return the Jwks url
      * @return string
      */
-    private function getCertsUrl(): string
+    public function getCertsUrl(): string
     {
         return $this->getRealmUrl()."/protocol/openid-connect/certs";
     }
@@ -86,12 +86,12 @@ class KeycloakGuard{
      * Return the keycloak base url with realm
      * @return string
      */
-    private function getRealmUrl():string
+    public function getRealmUrl():string
     {
         return $this->serverUrl.'/realms/'.$this->realm;
     }
 
-    private function getUserinfoUrl():string
+    public function getUserinfoUrl():string
     {
         return $this->serverUrl.'/realms/'.$this->realm."/protocol/openid-connect/userinfo";
     }
@@ -128,7 +128,7 @@ class KeycloakGuard{
 
     /**
      * Executed juste before JWT authentication
-     * For exemple, you can overwrite it for storing certs in the application cache
+     * For exemple, you can overwrite it for storing certs in the applicatioUndocumented functionn cache
      * @return void
      */
     public function preAuthenticate(){
@@ -157,7 +157,7 @@ class KeycloakGuard{
      * @return array|stdClass|null
      * @throws GuzzleException
      */
-    private function requestForJson(  string $url, string $method = "GET", array $options = [], $associative = true): array|stdClass|null
+    public function requestForJson(  string $url, string $method = "GET", array $options = [], $associative = true): array|stdClass|null
     {
 
         $response = $this->httpClient->request(
@@ -219,5 +219,16 @@ class KeycloakGuard{
         $this->certs = $certs;
 
         return $this;
+    }
+
+    
+    /**
+     * Get the HTTP Client
+     *
+     * @return Client
+     */
+    public function getClient(): Client
+    {
+        return $this->httpClient;
     }
 }
